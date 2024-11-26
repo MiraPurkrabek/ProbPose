@@ -9,20 +9,22 @@ def concat_images(directory):
     # Group images by prefix
     image_groups = {}
     for image_file in image_files:
-        prefix = image_file.split('_')[0]
+        prefix = "_".join(image_file.split('_')[:5])
         if prefix not in image_groups:
             image_groups[prefix] = []
         image_groups[prefix].append(image_file)
 
     ar_dict = {}
 
+    print(image_groups)
+
     # Concatenate images horizontally
     for prefix, images in image_groups.items():
         if len(images) != 2:
             continue
 
-        left_image_name = [img for img in images if 'ViTPose' in img][0]
-        right_image_name = [img for img in images if 'ProbPose' in img][0]
+        left_image_name = [img for img in images if 'vitpose' in img.lower()][0]
+        right_image_name = [img for img in images if 'probpose' in img.lower()][0]
 
         left_image = cv2.imread(os.path.join(directory, left_image_name))
         right_image = cv2.imread(os.path.join(directory, right_image_name))
@@ -35,12 +37,12 @@ def concat_images(directory):
         # Concatenate the images horizontally
         concat_image = cv2.hconcat([left_image, white_column, right_image])
 
-        # Resize the concatenated image to the same width
-        new_width = 920
-        target_aspect_ratio = 0.8
-        new_height = int(new_width * target_aspect_ratio)
-        concat_image = cv2.resize(concat_image, (new_width, new_height)) 
-        ar_dict[prefix] = new_height/new_width
+        # # Resize the concatenated image to the same width
+        # new_width = 920
+        # target_aspect_ratio = 0.8
+        # new_height = int(new_width * target_aspect_ratio)
+        # concat_image = cv2.resize(concat_image, (new_width, new_height)) 
+        # ar_dict[prefix] = new_height/new_width
 
         # Save the concatenated image
         output_path = os.path.join(directory, f'{prefix}_concatenated.jpg')
@@ -51,7 +53,7 @@ def concat_images(directory):
 
 def main():
     # Specify the directory containing the images
-    directory = '/mnt/disk/Users/mirap/CMP/papers_repos/ProbPose/static/images'
+    directory = '/mnt/disk/Users/mirap/CMP/papers_repos/ProbPose/static/images/gradual'
 
     # Call the function to concatenate the images
     concat_images(directory)
