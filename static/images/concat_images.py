@@ -14,6 +14,8 @@ def concat_images(directory):
             image_groups[prefix] = []
         image_groups[prefix].append(image_file)
 
+    ar_dict = {}
+
     # Concatenate images horizontally
     for prefix, images in image_groups.items():
         if len(images) != 2:
@@ -35,12 +37,17 @@ def concat_images(directory):
 
         # Resize the concatenated image to the same width
         new_width = 1020
-        new_height = int(concat_image.shape[0] * (new_width / concat_image.shape[1]))
+        target_aspect_ratio = 0.75
+        new_height = int(new_width * target_aspect_ratio)
         concat_image = cv2.resize(concat_image, (new_width, new_height)) 
+        ar_dict[prefix] = new_height/new_width
 
         # Save the concatenated image
         output_path = os.path.join(directory, f'{prefix}_concatenated.jpg')
         cv2.imwrite(output_path, concat_image)
+
+    for prefix, ar in ar_dict.items():
+        print("{:18s}: {:.2f}".format(prefix, ar))
 
 def main():
     # Specify the directory containing the images
