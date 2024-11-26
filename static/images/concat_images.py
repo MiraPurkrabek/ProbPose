@@ -9,7 +9,8 @@ def concat_images(directory):
     # Group images by prefix
     image_groups = {}
     for image_file in image_files:
-        prefix = "_".join(image_file.split('_')[:5])
+        # prefix = "_".join(image_file.split('_')[0])
+        prefix = image_file.split('_')[0]
         if prefix not in image_groups:
             image_groups[prefix] = []
         image_groups[prefix].append(image_file)
@@ -37,12 +38,12 @@ def concat_images(directory):
         # Concatenate the images horizontally
         concat_image = cv2.hconcat([left_image, white_column, right_image])
 
-        # # Resize the concatenated image to the same width
-        # new_width = 920
-        # target_aspect_ratio = 0.8
-        # new_height = int(new_width * target_aspect_ratio)
-        # concat_image = cv2.resize(concat_image, (new_width, new_height)) 
-        # ar_dict[prefix] = new_height/new_width
+        # Resize the concatenated image to the same width
+        new_width = 2160
+        target_aspect_ratio = 0.8
+        new_height = int(new_width * target_aspect_ratio)
+        concat_image = cv2.resize(concat_image, (new_width, new_height)) 
+        ar_dict[prefix] = new_height/new_width
 
         # Save the concatenated image
         output_path = os.path.join(directory, f'{prefix}_concatenated.jpg')
@@ -53,7 +54,7 @@ def concat_images(directory):
 
 def main():
     # Specify the directory containing the images
-    directory = '/mnt/disk/Users/mirap/CMP/papers_repos/ProbPose/static/images/gradual'
+    directory = '/mnt/disk/Users/mirap/CMP/papers_repos/ProbPose/static/images'
 
     # Call the function to concatenate the images
     concat_images(directory)
