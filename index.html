@@ -251,9 +251,11 @@ End youtube video -->
           <h2 class="title is-3">Results</h2>
           <div class="content has-text-justified">
             <p>
-              <!-- TBD -->
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non fermentum tellus, in euismod ligula.
-              Praesent pulvinar finibus sollicitudin. Duis in lacus tempor, tincidunt ligula eu, aliquam nisi.
+              Below is the comparison with SOTA (<a href="https://github.com/ViTAE-Transformer/ViTPose" target="_blank">ViTPose</a>).
+              ProbPose trained on cropped images has more stable predictions even with substantial crop.
+              Training on cropped images also improves predictions on the bounding box borders and in occluded keypoints.
+              <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non fermentum tellus, in euismod ligula.
+              Praesent pulvinar finibus sollicitudin. Duis in lacus tempor, tincidunt ligula eu, aliquam nisi. -->
               <!-- Comparison of the SOTA (<a href="https://github.com/ViTAE-Transformer/ViTPose" target="_blank">ViTPose</a>) trained on the COCO dataset and our method trained on the COCO dataset augmented with RePoGen images. <br>
               The limbs are: <span style="background-color:yellow">right arm</span>, <span style="background-color:rgb(255, 115, 0)">right leg</span>, <span style="background-color:cyan">left arm</span> and <span style="background-color:rgb(0, 119, 255)">left leg</span>. -->
             </p>
@@ -271,55 +273,56 @@ End youtube video -->
           <div class="item">
               <img src="static/images/000000004134_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                0004143.
+                Image from un-cropped COCO dataset. True location of the hips and left wristunknown.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/000000108495_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                00108495.
+                Image from un-cropped COCO dataset. True location of the left elbow unknown.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581790_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581790.
+                ProbPose correctly estimate elbows outside of the image.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581802_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581802.
+                ProbPose has more stable predictions on the image border.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581885_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581885.
+                Traditional methods gives estimates with high confidence even for wrong predictions.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581887_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581887.
+                Top-down methods can estimate keypoints very far from the image if the bounding box is horizontal.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581906_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581906.
+                Head and legs are correctly estimated. Ankles are not in the activation window and are not visualized.
+                Distractors (right arm) are still problematic even for ProbPose.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581928_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581928.
+                Improved localization of not only cropped head but also occluded ankles.
               </h2>
             </div>
             <div class="item">
               <img src="static/images/581964_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
               <h2 class="subtitle has-text-centered">
-                581964.
+                Even a little context helps ProbPose to correctly estimate cropped arm.
               </h2>
             </div>
         </div>
@@ -329,6 +332,27 @@ End youtube video -->
     </div>
     </div>
   </section>
+<!-- Results description -->
+<section class="section hero is-light" style="margin-bottom: 0;padding-bottom: 0;">
+  <div class="container is-max-desktop" style="margin-bottom: 0;">
+    <div class="columns is-centered has-text-centered" style="margin-bottom: 0;">
+      <div class="column is-four-fifths" style="margin-bottom: 0;padding-bottom: 0;">
+        <div class="content has-text-justified">
+          <p>
+            Following images showcases stability of prediction with gradual cropping.
+            ViTPose (left) is not stable once a limb is cropped and tries to predict the limb in the image.
+            ProbPose (right) is stable even with substantial crop.
+            <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non fermentum tellus, in euismod ligula.
+            Praesent pulvinar finibus sollicitudin. Duis in lacus tempor, tincidunt ligula eu, aliquam nisi. -->
+            <!-- Comparison of the SOTA (<a href="https://github.com/ViTAE-Transformer/ViTPose" target="_blank">ViTPose</a>) trained on the COCO dataset and our method trained on the COCO dataset augmented with RePoGen images. <br>
+            The limbs are: <span style="background-color:yellow">right arm</span>, <span style="background-color:rgb(255, 115, 0)">right leg</span>, <span style="background-color:cyan">left arm</span> and <span style="background-color:rgb(0, 119, 255)">left leg</span>. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Results description -->
   <section class="hero is-small is-centered is-light" style="margin-top: 0;padding-top: 0;">
     <div class="hero-body" style="margin-top: 0;padding-top: 0;">
       <div class="container" style="margin-top: 0;padding-top: 0;">
@@ -360,17 +384,7 @@ End youtube video -->
           <div class="item">
             <img src="static/images/gradual/concat/mclaughlin_paris_crop_lr_532_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
           </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    </div>
-  </section>
-  <section class="hero is-small is-centered is-light" style="margin-top: 0;padding-top: 0;">
-    <div class="hero-body" style="margin-top: 0;padding-top: 0;">
-      <div class="container" style="margin-top: 0;padding-top: 0;">
-        <div id="results-carousel" class="carousel results-carousel" style="margin-top: 0;padding-top: 0;">
+          <!--  -->
           <div class="item">
             <img src="static/images/gradual/concat/mclaughlin_paris_crop_rl_448_concatenated.jpg" alt="" style="max-width: 100%; height: auto;" />
           </div>
