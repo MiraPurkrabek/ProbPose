@@ -39,7 +39,7 @@ def concat_images(directory):
         concat_image = cv2.hconcat([left_image, white_column, right_image])
 
         # Resize the concatenated image to the same width
-        new_width = 920
+        new_width = 2800
         target_aspect_ratio = 0.5
         new_height = int(new_width * target_aspect_ratio)
         concat_image = cv2.resize(concat_image, (new_width, new_height)) 
