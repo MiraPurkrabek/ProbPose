@@ -4,7 +4,7 @@ import os
 
 def concat_images(directory):
     # Get all image files in the directory
-    image_files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and (f.endswith('.jpg') or f.endswith('.png'))]
+    image_files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and (f.endswith('.jpg') or f.endswith('.png')) and 'concatenated' not in f]
 
     # Group images by prefix
     image_groups = {}
@@ -32,6 +32,11 @@ def concat_images(directory):
 
         # Concatenate the images horizontally
         concat_image = cv2.hconcat([left_image, white_column, right_image])
+
+        # Resize the concatenated image to the same width
+        new_width = 1020
+        new_height = int(concat_image.shape[0] * (new_width / concat_image.shape[1]))
+        concat_image = cv2.resize(concat_image, (new_width, new_height)) 
 
         # Save the concatenated image
         output_path = os.path.join(directory, f'{prefix}_concatenated.jpg')
