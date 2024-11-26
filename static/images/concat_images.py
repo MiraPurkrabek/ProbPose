@@ -40,7 +40,7 @@ def concat_images(directory):
 
         # Resize the concatenated image to the same width
         new_width = 920
-        target_aspect_ratio = 1.0
+        target_aspect_ratio = 0.5
         new_height = int(new_width * target_aspect_ratio)
         concat_image = cv2.resize(concat_image, (new_width, new_height)) 
         ar_dict[prefix] = new_height/new_width
